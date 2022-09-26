@@ -23,7 +23,7 @@ Below this add some liquid code to capture the associated metafield data and sto
 {% endcapture %}
 ```
 
-Then, add this javascript inside script tags in the main-product.liquid file :
+Then, add this javascript inside script tags in the product-template.liquid file :
 
 ```
 <script>
