@@ -1,6 +1,6 @@
 # Adding Product Variants Description into the Dawn Theme
 
-First, here's how to display description depending on a selected product variant :
+First, here's how to display description depending on a selected product variant :   
 
 Add html to the main-product.liquid file in the Sections folder (position it where you would like to display the description), for example: 
 
