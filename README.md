@@ -44,51 +44,79 @@ Then, add this javascript inside script tags in the main-product.liquid file :
 
 ```
 
-Next, in the case of the Dawn theme, you need to update the theme.js file in the Assets folder. Find the code starting with onVariantChange(). Below that, inside the else block, add another method call for updateMeta():
+Next, in the case of the Dawn theme, you need to update the theme.js file in the Assets folder. Find the code starting with _onSelectChange(). Below that, inside the else block, add another method call for updateMeta():
 
 ```
-onVariantChange() {
-    this.updateOptions();
-    this.updateMasterId();
-    this.toggleAddButton(true, '', false);
-    this.updatePickupAvailability();
-    this.removeErrorMessage();
-
-    if (!this.currentVariant) {
-      this.toggleAddButton(true, '', true);
-      this.setUnavailable();
-    } else {
-      this.updateMedia();
-      this.updateURL();
-      this.updateVariantInput();
-      this.renderProductInfo();
-      this.updateShareUrl();
+_onSelectChange: function() {
+      var variant = this._getVariantFromOptions();
+      this.$container.trigger({
+        type: 'variantChange',
+        variant: variant
+      });
+      if (!variant) {
+        return;
+      }
+      this._updateMasterSelect(variant);
+      this._updateImages(variant);
+      this._updatePrice(variant);
+      this._updateSKU(variant);
+      this.currentVariant = variant;
       this.updateMeta();
-    }
-  }
-
+      if (this.enableHistoryState) {
+        this._updateHistoryState(variant);
+      }
+    },
 ```
 
 Then add the updateMeta code further down with the other update methods:
 
 ```
-updateOptions() {
-    this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
-  }
+/**
+     * Trigger event when variant image changes
+     *
+     * @param  {object} variant - Currently selected variant
+     * @return {event}  variantImageChange
+     */
+    _updateImages: function(variant) {
+      var variantImage = variant.featured_image || {};
+      var currentVariantImage = this.currentVariant.featured_image || {};
 
-  updateMasterId() {
-    this.currentVariant = this.getVariantData().find((variant) => {
-      return !variant.options.map((option, index) => {
-        return this.options[index] === option;
-      }).includes(false);
-    });
-  }
+      if (
+        !variant.featured_image ||
+        variantImage.src === currentVariantImage.src
+      ) {
+        return;
+      }
 
-  updateMeta() {
-	  emVariantDescriptionInfo(this.currentVariant.id);
-  }
-
-  updateMedia() { ...
+      this.$container.trigger({
+        type: 'variantImageChange',
+        variant: variant
+      });
+    },
+/**
+ * update metafield value when change the option
+ */
+    updateMeta() {
+      extraVariantInfo(this.currentVariant.id);
+    },
+    /**
+     * Trigger event when variant price changes.
+     *
+     * @param  {object} variant - Currently selected variant
+     * @return {event} variantPriceChange
+     */
+    _updatePrice: function(variant) {
+      if (
+        variant.price === this.currentVariant.price &&
+        variant.compare_at_price === this.currentVariant.compare_at_price
+      ) {
+        return;
+      }
+      this.$container.trigger({
+        type: 'variantPriceChange',
+        variant: variant
+      });
+    },
 ```
 
 Now your variant EM Variant description should be appearing and updating as you select different variant options.
