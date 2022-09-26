@@ -2,7 +2,7 @@
 
 First, here's how to display description depending on a selected product variant :
 
-Add html to the main-product.liquid file in the Sections folder (position it where you would like to display the description), for example: 
+Add html to the product-template.liquid file in the Sections folder (position it where you would like to display the description), for example: 
 
 ```
 <div class="hideAll">
