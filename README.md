@@ -68,7 +68,7 @@ _onSelectChange: function() {
     },
 ```
 
-Then add the updateMeta code further down with the other update methods:
+Then add the updateMeta code with the other update methods:
 
 ```
 /**
