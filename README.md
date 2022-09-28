@@ -44,7 +44,7 @@ Then, add this javascript inside script tags in the product-template.liquid file
 
 ```
 
-Next, in the case of the Dawn theme, you need to update the theme.js file in the Assets folder. Find the code starting with _onSelectChange(). Inside the _onSelectChange() , add another method call for updateMeta(): after this.currentVariant = variant;
+Next, in the case of the Debut theme, you need to update the theme.js file in the Assets folder. Find the code starting with _onSelectChange(). Inside the _onSelectChange() , add another method call for updateMeta(): after this.currentVariant = variant;
 
 ```
 _onSelectChange: function() {
