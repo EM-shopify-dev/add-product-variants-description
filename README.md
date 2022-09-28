@@ -97,7 +97,7 @@ Then add the updateMeta code with the other update methods:
  * update metafield value when change the option
  */
     updateMeta() {
-      extraVariantInfo(this.currentVariant.id);
+      emVariantDescriptionInfo(this.currentVariant.id);
     },
     /**
      * Trigger event when variant price changes.
