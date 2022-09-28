@@ -1,4 +1,4 @@
-# Adding Product Variants Description into the Older version of Dawn Theme
+# Adding Product Variants Description into the Older version of Theme
 
 First, here's how to display description depending on a selected product variant :
 
